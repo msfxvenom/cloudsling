@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CloudSling - Zero Fuss File Transer Service</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="icons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="icons/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="hero-banner" onclick="window.location='/'">
+        <div class="hero-text">
+          <span>Cloud </span
+          ><span style="color: rgba(58, 58, 206, 0.9)">Sling</span>
+        </div>
+      </div>
+
+      <div class="d1">Zero Fuss File Transfer Service !</div>
+      <!-- <div class="d2">Anonymously Transfer file upto 16MB</div> -->
+    </div>
+    <div class="content">
+      <div class="upload-area">
+        <div class="zone-text">Send Files</div>
+        <div id="drop-area" class="drop-container">
+          <div class="drop-title">DROP FILE HERE</div>
+          <input type="file" id="file-input" single style="display: none" />
+        </div>
+        <div class="overrideup-area"></div>
+      </div>
+      <div class="download-area">
+        <div class="zone-text">Receive Files</div>
+        <div class="code-input">
+          <input
+            type="text"
+            id="code"
+            name="code"
+            inputmode="numeric"
+            placeholder="000-000"
+            maxlength="6"
+          />
+        </div>
+        <h3 class="or">OR</h3>
+        <div class="code-qr">Scan QR</div>
+        <div class="overridedown-area"></div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-banner">
+        2023 - Coded by
+        <a class="coder" href="https://github.com/msfxvenom">@msfxvenom</a>
+      </div>
+    </div>
+    <script src="up.js"></script>
+    <script src="dl.js"></script>
+  </body>
+</html>
