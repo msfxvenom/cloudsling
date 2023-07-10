@@ -105,7 +105,7 @@ function handleFile(file) {
       (function () {
         let qr = new QRious({
           element: document.getElementById("qr"),
-          value: `http://192.168.247.4:6969/download?key=${data.key}`,
+          value: `https://cloudsling.adaptable.app/download?key=${data.key}`,
         });
         qr.background = "#1c2951";
         // qr.backgroundAlpha = 0.8;
@@ -113,7 +113,7 @@ function handleFile(file) {
         qr.foregroundAlpha = 0.85;
         qr.level = "L";
         qr.size = 230;
-        qr.value = `http://192.168.247.4:6969/download?key=${data.key}`;
+        qr.value = `http://cloudsling.adaptable.app/download?key=${data.key}`;
       })();
 
       upload_area.style.pointerEvents = "";
