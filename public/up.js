@@ -71,6 +71,8 @@ function openFileInput() {
   fileInput.click();
 }
 
+const drop_container = document.getElementById("drop-area");
+const zone_text = document.querySelector(".zone-text ");
 function handleFile(file) {
   const formData = new FormData();
   footer.style.display = "none";
@@ -92,14 +94,37 @@ function handleFile(file) {
   xhr.addEventListener("load", () => {
     if (xhr.status === 200) {
       const data = JSON.parse(xhr.responseText);
+      drop_container.style.display = "none";
+      zone_text.textContent = "File Uploaded";
+      zone_text.style.background = "#198754";
+      zone_text.style.borderRadius = "5px";
 
-      overrideup.innerHTML = `<div style='text-align:center;position:absolute;left:50%;transform:translateX(-50%);margin:10px auto;border-radius:7px;background-color:#198754;font-size:1.2em;color:white;width:80%'>File Uploaded with key : ${data.key}</div>`;
+      overrideup.innerHTML = `<div style='width:100%;text-align:center;font-family:sans-serif;font-size:1.2em;margin-bottom:2vh'>Use or scan this code </div><div style="width:100%;text-align:center;font-size:3em">${
+        data.key.substring(0, 3) + "-" + data.key.substring(3)
+      } </div><div style='width:100%;text-align:center;'><canvas id='qr'></canvas></div>`;
+      (function () {
+        let qr = new QRious({
+          element: document.getElementById("qr"),
+          value: `http://192.168.247.4:6969/download?key=${data.key}`,
+        });
+        qr.background = "#1c2951";
+        // qr.backgroundAlpha = 0.8;
+        qr.foreground = "#ffffff";
+        qr.foregroundAlpha = 0.85;
+        qr.level = "L";
+        qr.size = 230;
+        qr.value = `http://192.168.247.4:6969/download?key=${data.key}`;
+      })();
 
       upload_area.style.pointerEvents = "";
     } else {
+      // drop_container.style.display = "none";
       overrideup.innerHTML =
         "<div style='text-align:center;position:absolute;left:50%;transform:translateX(-50%);margin:10px auto;border-radius:7px;background-color:#d53939c8;font-size:1.2em;color:white;width:60%'>Server unreachable</div>";
-      upload_area.style.pointerEvents = "";
+      setTimeout(() => {
+        overrideup.innerHTML = "";
+        upload_area.style.pointerEvents = "";
+      }, 3000);
     }
   });
 
@@ -107,7 +132,10 @@ function handleFile(file) {
     // console.error("Error uploading file:", xhr.status);
     overrideup.innerHTML =
       "<div style='text-align:center;position:absolute;left:50%;transform:translateX(-50%);margin:10px auto;border-radius:7px;background-color:#d53939c8;font-size:1.2em;color:white;width:60%'>File upload failed</div>";
-    upload_area.style.pointerEvents = "";
+    setTimeout(() => {
+      overrideup.innerHTML = "";
+      upload_area.style.pointerEvents = "";
+    }, 3000);
   });
 
   xhr.open("POST", "/upload");

@@ -11,6 +11,7 @@ function handleCodeInput() {
 }
 async function downloadFile(key) {
   try {
+    codeInput.disabled = true;
     upload_area.style.display = "none";
     if (window.matchMedia("(max-width: 767px)").matches) {
       download_area.style.border = "0px";
@@ -30,13 +31,15 @@ async function downloadFile(key) {
       overridedown.innerHTML = `<div style='text-align:center;position:absolute;left:50%;transform:translateX(-50%);margin:10px auto;border-radius:7px;background-color:#d53939c8;font-size:1.2em;color:white;width:50%'>Invalid Code</div>`;
       setTimeout(() => {
         overridedown.innerHTML = "";
-      }, 4000);
+        codeInput.disabled = false;
+      }, 3000);
     }
   } catch (error) {
     overridedown.innerHTML = `<div style='text-align:center;position:absolute;left:50%;transform:translateX(-50%);margin:10px auto;border-radius:7px;background-color:#d53939c8;font-size:1.2em;color:white;width:50%'>Server error</div>`;
     setTimeout(() => {
       overridedown.innerHTML = "";
-    }, 4000);
+      codeInput.disabled = false;
+    }, 3000);
     console.log("Server error " + error);
   }
 }
@@ -44,7 +47,7 @@ async function downloadFile(key) {
 async function downloadWithProgress(response, filename) {
   const contentLength = +response.headers.get("Content-Length");
   let downloaded = 0;
-
+  codeInput.disabled = true;
   const updateProgress = (downloaded) => {
     const progress = (downloaded / contentLength) * 100;
     overridedown.innerHTML = `<div style='text-align:center;position:absolute;left:50%;transform:translateX(-50%);margin:10px auto;border-radius:7px;background-color:rgba(58, 58, 206, 0.9);font-size:1.2em;color:white;width:50%'>Progress : ${
@@ -74,4 +77,5 @@ async function downloadWithProgress(response, filename) {
   link.click();
   URL.revokeObjectURL(link.href);
   overridedown.innerHTML = `<div style='text-align:center;position:absolute;left:50%;transform:translateX(-50%);margin:10px auto;border-radius:7px;background-color:#198754;font-size:1.2em;color:white;width:65%'>File received successfully !</div>`;
+  codeInput.disabled = false;
 }
